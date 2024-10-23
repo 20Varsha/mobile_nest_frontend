@@ -74,7 +74,7 @@ h2 {
 }
 
 .buy-button:hover {
-  background-color: #e94e00; /* Darker orange on hover */
+  background-color: #000000; /* Darker orange on hover */
 }
 
 .price{
@@ -83,3 +83,4 @@ h2 {
   display: flex;
   font-family: monospace;
 }
+

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service'; 
+import { Router } from '@angular/router';
 
 interface Specification {
   key: string;
@@ -21,37 +22,23 @@ interface Product {
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-  products: Product[] = [];
-  isAuthenticated: boolean = false;
+  products: any[] = []; // Will store fetched products
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) {}
 
-  ngOnInit(): void {
-    this.checkAuthentication();
-    if (this.isAuthenticated) {
-      this.loadProducts();
-    } else {
-      console.error('User is not authenticated');
-    }
+  ngOnInit() {
+    this.fetchProducts(); 
   }
 
-  checkAuthentication(): void {
-    const token = localStorage.getItem('token'); 
-    this.isAuthenticated = !!token; 
-  }
-
-  loadProducts(): void {
-    this.apiService.getProducts().subscribe({
-      next: (data) => {
-        this.products = data;
-      },
-      error: (error) => {
-        console.error('Error fetching products', error);
-      }
+  fetchProducts() {
+    this.apiService.getProducts().subscribe((data) => {
+      this.products = data; 
+      console.log(this.products);
+      
     });
   }
 
-  buyProduct(productId: string): void {
-    console.log('Buying product with ID:', productId);
+  viewProductDetails(productId: string) {
+    this.router.navigate(['/product-details', productId]); 
   }
 }

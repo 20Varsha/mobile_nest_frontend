@@ -1,13 +1,41 @@
-<!-- <h2>Buy Product</h2>
-<form (ngSubmit)="buyProduct()">
-  <label>Card Number</label>
-  <input [(ngModel)]="accountDetails.cardNumber" name="cardNumber" required />
+<div class="order-container">
+  <h2>Order Product</h2>
+  <div class="row">
+    <!-- Account Details Section -->
+    <div class="col-6 account-details">
+      <h3>Account Details</h3>
+      <form (ngSubmit)="buyProduct()" #orderForm="ngForm">
+        <div class="form-group">
+          <label for="accountNumber">Account Number:</label>
+          <input type="text" id="accountNumber" [(ngModel)]="accountDetails.accountNumber" name="accountNumber" required />
+        </div>
 
-  <label>Expiry Date</label>
-  <input [(ngModel)]="accountDetails.expiryDate" name="expiryDate" required />
+        <div class="form-group">
+          <label for="ifsc">IFSC Code:</label>
+          <input type="text" id="ifsc" [(ngModel)]="accountDetails.ifsc" name="ifsc" required />
+        </div>
 
-  <label>CVV</label>
-  <input [(ngModel)]="accountDetails.cvv" name="cvv" required />
+        <div class="form-group">
+          <label for="bankName">Bank Name:</label>
+          <input type="text" id="bankName" [(ngModel)]="accountDetails.bankName" name="bankName" required />
+        </div>
+      </form>
+    </div>
 
-  <button type="submit">Buy Now</button>
-</form> -->
+    <!-- Product Details Section -->
+    <div class="col-6 product-details">
+      <form (ngSubmit)="buyProduct()" #orderForm="ngForm">
+      <h3>Product Details</h3>
+      <div *ngIf="product">
+        <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+        <h4>{{ product.name }}</h4>
+        <p>Price: ₹ {{ product.price }}</p>
+      <hr/>
+        <h5><b>Total</b> ₹ {{ product.price }}</h5>
+        <button type="submit" class="buy-now-btn">Place Order</button>
+
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

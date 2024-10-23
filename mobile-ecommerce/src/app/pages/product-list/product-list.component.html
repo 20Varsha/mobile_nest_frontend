@@ -1,16 +1,11 @@
 <div class="product-list-container">
   <h2>Products</h2>
   <div class="product-grid">
-    <div class="product-card" *ngFor="let product of products">
+    <div class="product-card" *ngFor="let product of products" (click)="viewProductDetails(product._id)">
       <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
-      <div class="product-info"  (click)="buyProduct(product._id)">
+      <div class="product-info">
         <h3 class="product-name">{{ product.name }}</h3>
-        <ul class="specifications">
-          <li *ngFor="let spec of product.specifications">
-            <strong>{{ spec.key }}:</strong> {{ spec.value }}
-          </li>
-        </ul>
-        <h2 class="price">Rs:{{product.price}}</h2>
+        <h2 class="price">Rs:{{ product.price }}</h2>
       </div>
     </div>
   </div>

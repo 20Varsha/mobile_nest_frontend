@@ -1,11 +1,32 @@
-<!-- <div *ngIf="product">
-    <img [src]="product.image" alt="Product image" />
-    <h2>{{ product.name }}</h2>
-    <ul>
-      <li *ngFor="let spec of product.specifications">
-        {{ spec.key }}: {{ spec.value }}
-      </li>
-    </ul>
-    <a [routerLink]="['/buy-product', product._id]">Buy Product</a>
+<div class="product-details-container" *ngIf="product">
+  <div class="product-details-wrapper">
+    <!-- Back Button -->
+    <button class="back-btn" (click)="goBack()">← Back to Products</button>
+
+    <!-- Product Image -->
+    <div class="product-image-container">
+      <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+    </div>
+
+    <!-- Product Information -->
+    <div class="product-info-container">
+      <h2 class="product-name">{{ product.name }}</h2>
+      
+      <!-- Specifications -->
+      <div class="product-specifications">
+        <h4>Specifications:</h4>
+        <ul>
+          <li *ngFor="let spec of product.specifications">
+            <strong>{{ spec.key }}:</strong> {{ spec.value }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Price -->
+      <h3 class="product-price">Price: ₹ {{ product.price }}</h3>
+
+      <!-- Buy Now Button -->
+      <button class="buy-now-btn" (click)="buyProduct(product._id)">Buy Now</button>
+    </div>
   </div>
-   -->
+</div>
