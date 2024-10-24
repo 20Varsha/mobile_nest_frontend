@@ -5,9 +5,9 @@
 .account-details,
 .product-details {
   padding: 20px;
-  border: 1px solid #ccc; /* Optional: Add a border for better distinction */
-  border-radius: 5px; /* Optional: Rounded corners */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow for depth */
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: monospace;
 }
 
 .product-image {
@@ -29,7 +29,7 @@ label {
 }
 
 input {
-  width: 100%;
+  width: 50%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;

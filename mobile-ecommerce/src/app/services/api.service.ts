@@ -46,10 +46,17 @@ export class ApiService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
-  buyProduct(productId: string, accountDetails: any): Observable<any> {
+  buyProduct(productId: string, quantity: number, accountDetails: any, shippingAddress: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.baseUrl}/orders/buy`, { productId, accountDetails }, { headers })
+      const payload = {
+      productId,
+      quantity,
+      accountDetails,
+      shippingAddress
+    };
+    return this.http.post(`${this.baseUrl}/orders/place-order`, payload, { headers })
       .pipe(catchError(this.handleError.bind(this)));
   }
+  
 }

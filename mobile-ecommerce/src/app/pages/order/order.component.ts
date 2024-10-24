@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-order',
   templateUrl: './order.component.html',
-  styleUrls: ['./order.component.css']
+  styleUrls: ['./order.component.css'],
 })
 export class OrderComponent implements OnInit {
   productId: string = '';
@@ -15,12 +15,25 @@ export class OrderComponent implements OnInit {
     ifsc: '',
     bankName: '',
   };
-  product: any; // Store product details
+  shippingAddress = {
+    fullName: '',
+    addressLine1: '',
+    city: '',
+    postalCode: '',
+    country: '',
+    phoneNumber:'',
+    state:''
+  };
+  product: any; 
+  quantity: number = 1; 
+  shippingCost: number = 50;
+  taxAmount: number = 0;
+  totalPrice: number = 0;
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit() {
-    this.productId = this.route.snapshot.paramMap.get('id') || ''; // Get the product ID
+    this.productId = this.route.snapshot.paramMap.get('id') || ''; 
     if (this.productId) {
       this.fetchProductDetails(this.productId);
     }
@@ -29,7 +42,8 @@ export class OrderComponent implements OnInit {
   fetchProductDetails(productId: string) {
     this.apiService.getProductDetails(productId).subscribe(
       (data) => {
-        this.product = data; // Store product details
+        this.product = data; 
+        this.calculateTotalPrice(); // Calculate total price on product fetch
       },
       (error) => {
         console.error('Error fetching product details:', error);
@@ -37,9 +51,25 @@ export class OrderComponent implements OnInit {
     );
   }
 
+  calculateTotalPrice() {
+    if (this.product && this.product.price) {
+      this.taxAmount = this.product.price * 0.1;
+      this.totalPrice = this.product.price * this.quantity + this.shippingCost + this.taxAmount;
+    }
+  }
+
   buyProduct() {
-    // Call the buyProduct method from the ApiService with productId and accountDetails
-    this.apiService.buyProduct(this.productId, this.accountDetails).subscribe(
+    const shippingAddress = {
+      fullName: this.shippingAddress.fullName,
+      addressLine1: this.shippingAddress.addressLine1,
+      city: this.shippingAddress.city,
+      postalCode: this.shippingAddress.postalCode,
+      country: this.shippingAddress.country,
+      state:this.shippingAddress.state,
+      phoneNumber:this.shippingAddress.phoneNumber
+    };
+
+    this.apiService.buyProduct(this.productId, this.quantity, this.accountDetails, shippingAddress).subscribe(
       response => {
         // Handle success response
         Swal.fire({
