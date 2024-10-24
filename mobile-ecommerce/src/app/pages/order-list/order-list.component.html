@@ -1,0 +1,23 @@
+<div class="order-list container">
+    <h2 class="mt-4 ml-3">Your Orders</h2>
+    <div class="card-container">
+      <div class="row order-box" *ngFor="let order of orders">
+        <div class="col-md-8">
+          <div>
+            <h3 class="order-name">{{ order.productId.name }}</h3>
+            <p><strong>Quantity:</strong> {{ order.quantity }}</p>
+            <p><strong>Total Price:</strong> {{ order.totalPrice | currency }}</p>
+            <p><strong>Order Status:</strong> {{ order.orderStatus }}</p>
+            <p><strong>Order Date:</strong> {{ order.orderDate | date:'short' }}</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <img [src]="order.productId.image" alt="{{ order.productId.name }}" class="product-image img-fluid" />
+          <div class="button-container">
+            <p  class="view-more"(click)="viewOrderDetails(order._id)">View Order</p>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

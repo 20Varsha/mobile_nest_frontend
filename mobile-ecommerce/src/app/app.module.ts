@@ -10,6 +10,8 @@ import { ProductDetailsComponent } from './pages/product-details/product-details
 import { OrderComponent } from './pages/order/order.component';
 import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from './navbar/navbar.component';
+import { OrderListComponent } from './pages/order-list/order-list.component';
+import { OrderDetailComponent } from './pages/order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -19,8 +21,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     ProductListComponent,
     ProductDetailsComponent,
     OrderComponent,
-    NavbarComponent
-  ],
+    NavbarComponent,
+    OrderListComponent,
+    OrderDetailComponent
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

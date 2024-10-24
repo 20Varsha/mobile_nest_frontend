@@ -1,0 +1,71 @@
+.order-list {
+    padding: 20px;
+}
+
+h2{
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+}
+
+.card-container {
+    display: flex;
+    flex-direction: column;
+    /* Change to column for single card rows */
+    gap: 20px;
+    /* Space between each card */
+}
+
+.order-box {
+    border: 1px solid #0000000d;
+    border-radius: 15px;
+    max-width: 80%;
+    margin: 15px;
+    padding: 18px;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    /* Slightly smaller hover effect */
+}
+
+.product-image {
+    max-width: 55%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.order-name {
+    font-size: 18px;
+    color: #333333d6;
+    margin: 10px 0;
+    font-family: monospace;
+}
+
+.view-more {
+    font-size: 18px;
+    color: #333333d6;
+    margin: 10px 0;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.view-more:hover {
+    font-size: 20px;
+    color: #000000d6;
+    margin: 10px 0;
+    font-weight: 900;
+}
+
+.order-box p {
+    font-size: 15px;
+    color: #333333d6;
+    margin: 10px 0;
+    font-family: monospace;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+}

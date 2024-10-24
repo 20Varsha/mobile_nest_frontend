@@ -30,6 +30,12 @@ export class ApiService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
+  addProduct(productData: any): Observable<any> {
+    const token = localStorage.getItem('token'); 
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/products/add`, productData,{ headers }); // Sending JSON
+}
+  
   getProducts(): Observable<any> {
     const token = localStorage.getItem('token'); 
     return this.http.get(`${this.baseUrl}/products`, {
@@ -56,6 +62,22 @@ export class ApiService {
       shippingAddress
     };
     return this.http.post(`${this.baseUrl}/orders/place-order`, payload, { headers })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+   // New method to get all orders
+   getOrders(): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.baseUrl}/orders`, { headers })
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  //  get order details by ID
+  getByOrder(id: string): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.baseUrl}/orders/${id}`, { headers })
       .pipe(catchError(this.handleError.bind(this)));
   }
   

@@ -21,11 +21,20 @@ export class LoginComponent {
 
     this.apiService.login(credentials).subscribe({
       next: (response) => {
-        localStorage.setItem('token', response.token); 
+        // Assuming response contains token, role, and name
+        const { token, role, name } = response;
+        
+        // Store token, role, and name in localStorage
+        localStorage.setItem('token', token); 
+        localStorage.setItem('role', role); 
+        localStorage.setItem('name', name); 
+        
+        // Navigate to products page after successful login
         this.router.navigate(['/products']); 
       },
       error: (error) => {
         console.error('Login failed', error);
+        // Optionally, show error messages to the user
       }
     });
   }

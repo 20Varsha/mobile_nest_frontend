@@ -1,14 +1,7 @@
-.product-list-container {
-  max-width: 1200px; /* Limit the maximum width */
-  margin: 0 auto; /* Center the container */
-  padding: 20px; /* Add some padding */
-}
-
-h2 {
-  text-align: center;
+h2{
   margin-bottom: 20px;
   font-family: 'Arial', sans-serif;
-  color: #333; /* Dark gray for the title */
+  color: #333;
 }
 
 .product-grid {
@@ -84,4 +77,109 @@ h2 {
   font-family: monospace;
   font-size: 18px;
   font-weight: 800;
+}
+
+.no-products-message {
+  font-size: 18px;
+  margin: 10px 0;
+  font-family: monospace;
+  color: #ff0000; /* Change to your preferred color */
+}
+
+.add-product-form {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.add-product-form h3 {
+  margin-bottom: 15px;
+}
+
+.add-product-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal {
+  display: block; /* Show modal */
+  position: fixed; /* Fix the position */
+  z-index: 1050; /* Set a higher z-index */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* Background color with opacity */
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040; /* Set a lower z-index than modal */
+}
+
+.show {
+  display: block; /* Display modal */
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.product-list-container {
+  max-width: 1200px; /* Limit the maximum width */
+  margin: 0 auto; /* Center the container */
+  padding: 20px; /* Add some padding */
+}
+
+.add-product-icon {
+  margin-bottom: 20px; /* Space below the image */
+  cursor: pointer;
+  width: 200px; /* Size of the icon */
+  height: 200px; /* Size of the icon */
+}
+
+.add-product-icon:hover {
+  opacity: 0.8; /* Change opacity on hover for effect */
+}
+
+.add-more{
+  font-size: 20px;
+  color:green;
+  margin: 10px 0;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: monospace;
+}
+
+.form-control {
+  height: 46px!important;
+}
+
+.add-product-btn {
+  background-color: #000000;
+  color: #fff;
+  font-size: 15px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 30%;
+  transition: background-color 0.3s ease;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; 
 }

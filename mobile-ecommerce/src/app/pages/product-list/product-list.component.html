@@ -1,12 +1,62 @@
 <div class="product-list-container">
-  <h2>Products</h2>
-  <div class="product-grid">
-    <div class="product-card" *ngFor="let product of products" (click)="viewProductDetails(product._id)">
-      <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
-      <div class="product-info">
-        <h3 class="product-name">{{ product.name }}</h3>
-        <h2 class="price">Rs:{{ product.price }}</h2>
+  <h2 class="mt-4">Products</h2>
+  <div class="text-container">
+  <p class="product-name" *ngIf="products.length === 0 && isAdmin">No products added yet. Please click the icon below to
+    add a product.</p>
+  <img *ngIf="isAdmin && products.length === 0" src="../../../assets/images/add-product.png" alt="Add Product"
+    class="add-product-icon" (click)="openModal()" />
+
+  <div *ngIf="products.length === 0 && !isAdmin" class="no-products-message">
+    <p>Oops! There are no products added. Admin needs to add products.</p>
+  </div>
+
+  <p *ngIf="products.length >0 && isAdmin" class="add-more" (click)="openModal()" >Add More</p>
+</div>
+
+  <div class=" product-grid" *ngIf="products.length > 0">
+  <div class="product-card" *ngFor="let product of products" (click)="viewProductDetails(product._id)">
+    <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+    <div class="product-info">
+      <h3 class="product-name">{{ product.name }}</h3>
+      <h2 class="price">Rs: {{ product.price }}</h2>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap Modal for Adding Product -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}"
+  style="display: {{ showModal ? 'block' : 'none' }};">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Product</h5>
+        <button type="button" class="close" (click)="closeModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addProduct()">
+          <div class="form-group">
+            <input type="text" placeholder="Name" class="form-control" id="name" [(ngModel)]="product.name" name="name" required />
+          </div>
+          <div class="form-group">
+            <input type="file" class="form-control" id="image" (change)="onFileSelected($event)" required />
+          </div>
+
+          <div class="form-group">
+            <input type="number" placeholder="Price" class="form-control" id="price" [(ngModel)]="product.price" name="price" required />
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" placeholder="Specifications (key:value, one per line)" id="specifications" [(ngModel)]="specifications" name="specifications"
+              required></textarea>
+          </div>
+          <div class="button-container">
+          <button type="submit" class="add-product-btn">Add Product</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
+<div class="modal-backdrop" [ngClass]="{'show': showModal}" *ngIf="showModal" (click)="closeModal()"></div>
 </div>
