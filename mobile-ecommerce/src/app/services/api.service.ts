@@ -46,7 +46,7 @@ export class ApiService {
       .pipe(catchError(this.handleError.bind(this)));
   }
 
-  buyProduct(productId: string, quantity: number, accountDetails: any, shippingAddress: any): Observable<any> {
+  placeOrder(productId: string, quantity: number, accountDetails: any, shippingAddress: any): Observable<any> {
     const token = localStorage.getItem('token'); 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
       const payload = {

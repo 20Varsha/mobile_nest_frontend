@@ -1,5 +1,6 @@
 <div class="order-container">
   <h2>Checkout</h2>
+  <button class="back-btn" (click)="goBack()">← Back to Products</button>
   <form (ngSubmit)="buyProduct()" #orderForm="ngForm">
     <div class="row">
       <!-- Account Details Section -->

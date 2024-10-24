@@ -1,0 +1,41 @@
+.navbar {
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .navbar-brand {
+    font-weight: bold; /* Bold brand name */
+  }
+  
+  .nav-link {
+    color: #333333; /* Darker text color for contrast */
+  }
+  
+  .nav-link:hover {
+    color: #007bff; /* Change color on hover */
+  }
+  
+  .navbar-toggler {
+    border-color: #007bff; /* Blue border for the toggler */
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #007bff; /* Blue background for the icon */
+  }
+
+  .navbar-nav .nav-link {
+    color: black; /* Default link color */
+  }
+  
+  .navbar-nav .nav-link.active {
+    font-weight: 800;
+    color: #000000; 
+  }
+  
+  /* Optional: Style for hover effect */
+  .navbar-nav .nav-link:hover {
+    font-weight: 800;
+    color: #000000; /* Change this to your desired hover color */
+  }
+  
+  

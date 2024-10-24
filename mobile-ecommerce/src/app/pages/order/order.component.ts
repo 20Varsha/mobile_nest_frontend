@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { ActivatedRoute, Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-order',
@@ -30,7 +30,7 @@ export class OrderComponent implements OnInit {
   taxAmount: number = 0;
   totalPrice: number = 0;
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.productId = this.route.snapshot.paramMap.get('id') || ''; 
@@ -69,9 +69,8 @@ export class OrderComponent implements OnInit {
       phoneNumber:this.shippingAddress.phoneNumber
     };
 
-    this.apiService.buyProduct(this.productId, this.quantity, this.accountDetails, shippingAddress).subscribe(
+    this.apiService.placeOrder(this.productId, this.quantity, this.accountDetails, shippingAddress).subscribe(
       response => {
-        // Handle success response
         Swal.fire({
           title: 'Success!',
           text: 'Product purchased successfully!',
@@ -80,7 +79,6 @@ export class OrderComponent implements OnInit {
         });
       },
       error => {
-        // Handle error response
         Swal.fire({
           title: 'Error!',
           text: 'There was an issue with your purchase. Please try again.',
@@ -90,4 +88,10 @@ export class OrderComponent implements OnInit {
       }
     );
   }
+
+  goBack() {
+    this.router.navigate(['/products']); 
+  }
+
 }
+
