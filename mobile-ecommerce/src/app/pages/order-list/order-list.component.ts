@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class OrderListComponent implements OnInit {
   orders: any[] = [];
+  loading: boolean = true; // Add loading state
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -20,9 +21,11 @@ export class OrderListComponent implements OnInit {
     this.apiService.getOrders().subscribe(
       (data) => {
         this.orders = data; 
+        this.loading = false; // Set loading to false when data is fetched
       },
       (error) => {
         console.error('Error fetching orders:', error);
+        this.loading = false; // Ensure loading is set to false on error
       }
     );
   }

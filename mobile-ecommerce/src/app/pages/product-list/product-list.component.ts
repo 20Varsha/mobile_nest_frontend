@@ -29,7 +29,7 @@ export class ProductListComponent implements OnInit {
     isAdmin: boolean = false;
     specifications: string = '';
     userName: string = '';
-
+    loading: boolean = true;
     constructor(private apiService: ApiService, private router: Router) { }
 
     ngOnInit() {
@@ -37,14 +37,7 @@ export class ProductListComponent implements OnInit {
         this.fetchProducts();
         const user = localStorage.getItem('name');
         if (user) {
-            this.userName = user
-        }
-    }
-
-    checkAdminStatus() {
-        const adminStatus = localStorage.getItem('role');
-        if (adminStatus == 'admin') {
-            this.isAdmin = true;
+            this.userName = user;
         }
     }
 
@@ -52,7 +45,17 @@ export class ProductListComponent implements OnInit {
         this.apiService.getProducts().subscribe((data) => {
             this.products = data;
             console.log(this.products);
+            this.loading = false; // Set loading to false once data is fetched
+        }, () => {
+            this.loading = false; // Ensure loading is false even on error
         });
+    }
+
+    checkAdminStatus() {
+        const adminStatus = localStorage.getItem('role');
+        if (adminStatus == 'admin') {
+            this.isAdmin = true;
+        }
     }
 
     viewProductDetails(productId: string) {

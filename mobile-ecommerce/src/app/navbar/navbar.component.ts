@@ -1,36 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   isLoggedIn: boolean = false;
   username: string = '';
+  private loginSub: Subscription | null = null; // Initialize with null
 
-  constructor(private router: Router) { }
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
-    this.checkAdminStatus();
+    this.loginSub = this.apiService.isLoggedIn$.subscribe((loggedIn) => {
+      this.isLoggedIn = loggedIn;
+      if (loggedIn) {
+        this.username = localStorage.getItem('name') || 'User';
+      }
+    });
   }
 
-  checkAdminStatus() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      this.isLoggedIn = true;
-      this.username = localStorage.getItem('name') || 'User'; 
-    } else {
-      this.isLoggedIn = false;
-    }
-  }
-
-  // Logout function
   logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('name'); 
-    localStorage.removeItem('role'); 
-    this.router.navigate(['/login']);
+    this.apiService.logout();
+  }
+
+  ngOnDestroy() {
+    if (this.loginSub) {
+      this.loginSub.unsubscribe();
+    }
   }
 }

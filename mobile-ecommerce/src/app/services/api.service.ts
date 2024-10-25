@@ -1,7 +1,8 @@
+// api.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, BehaviorSubject, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,21 +10,40 @@ import { Router } from '@angular/router';
 })
 export class ApiService {
   private baseUrl = 'http://localhost:5000/api/v1';
+  private isLoggedInSubject = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+  
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   private handleError(error: HttpErrorResponse) {
     if (error.status === 401) {
-      // Token expired or invalid, redirect to login
       this.router.navigate(['/login']);
     }
     return throwError('Something went wrong; please try again later.');
   }
 
   login(data: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/auth/login`, data)
-      .pipe(catchError(this.handleError.bind(this)));
+    return this.http.post(`${this.baseUrl}/auth/login`, data).pipe(
+      tap((response: any) => {
+        const { token, role, name } = response;
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', role);
+        localStorage.setItem('name', name);
+        this.isLoggedInSubject.next(true);
+      }),
+      catchError(this.handleError.bind(this))
+    );
   }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('name');
+    localStorage.removeItem('role');
+    this.isLoggedInSubject.next(false);
+    this.router.navigate(['/login']);
+  }
+
 
   register(data: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/register`, data)
