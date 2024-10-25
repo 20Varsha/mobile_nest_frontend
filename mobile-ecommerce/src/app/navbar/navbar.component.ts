@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -6,8 +6,9 @@ import { Router } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
-  isLoggedIn: boolean=false;
+export class NavbarComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  username: string = '';
 
   constructor(private router: Router) { }
 
@@ -16,17 +17,20 @@ export class NavbarComponent {
   }
 
   checkAdminStatus() {
-    const adminStatus = localStorage.getItem('token');
-    if (adminStatus) {
-      this.isLoggedIn = true; 
+    const token = localStorage.getItem('token');
+    if (token) {
+      this.isLoggedIn = true;
+      this.username = localStorage.getItem('name') || 'User'; 
     } else {
-      this.isLoggedIn = false; 
+      this.isLoggedIn = false;
     }
   }
 
   // Logout function
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('name'); 
+    localStorage.removeItem('role'); 
     this.router.navigate(['/login']);
   }
 }

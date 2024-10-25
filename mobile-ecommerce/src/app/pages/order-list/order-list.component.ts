@@ -30,4 +30,8 @@ export class OrderListComponent implements OnInit {
   viewOrderDetails(orderId: string): void {
     this.router.navigate(['/order-details', orderId]); 
   }
+
+  redirectToProducts() {
+    this.router.navigate(['/products']);
+  }
 }

@@ -75,3 +75,11 @@ h2{
     display: flex;
     justify-content: center;
 }
+
+.no-orders-message {
+    font-size: 18px;
+    margin: 10px 0;
+    font-family: monospace;
+    color: #000000; 
+  }
+  

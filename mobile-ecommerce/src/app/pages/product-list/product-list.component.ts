@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service'; 
+import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 interface Specification {
     key: string;
@@ -25,38 +26,41 @@ export class ProductListComponent implements OnInit {
     product: Product = { _id: '', name: '', image: '', price: '', specifications: [] };
     showModal: boolean = false;
     selectedImage: File | null = null;
-    isAdmin: boolean = false;  // Changed to false by default
+    isAdmin: boolean = false;
     specifications: string = '';
+    userName: string = '';
 
-    constructor(private apiService: ApiService, private router: Router) {}
+    constructor(private apiService: ApiService, private router: Router) { }
 
     ngOnInit() {
-        this.checkAdminStatus(); // Check if user is an admin
-        this.fetchProducts(); 
+        this.checkAdminStatus();
+        this.fetchProducts();
+        const user = localStorage.getItem('name');
+        if (user) {
+            this.userName = user
+        }
     }
 
     checkAdminStatus() {
         const adminStatus = localStorage.getItem('role');
-        console.log(adminStatus);
-        
-        if(adminStatus=='admin'){
-          this.isAdmin = true; // Convert string to boolean
+        if (adminStatus == 'admin') {
+            this.isAdmin = true;
         }
     }
 
     fetchProducts() {
         this.apiService.getProducts().subscribe((data) => {
-            this.products = data; 
+            this.products = data;
             console.log(this.products);
         });
     }
 
     viewProductDetails(productId: string) {
-        this.router.navigate(['/product-details', productId]); 
+        this.router.navigate(['/product-details', productId]);
     }
 
     openModal() {
-        if (this.isAdmin) {  
+        if (this.isAdmin) {
             this.showModal = true;
         } else {
             alert('Only admins can add products.');
@@ -69,13 +73,13 @@ export class ProductListComponent implements OnInit {
     }
 
     onFileSelected(event: any) {
-        const file = event.target.files[0]; // Get the selected file
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = (e: any) => {
-                this.product.image = e.target.result; // Set the image as a base64 string or URL
+                this.product.image = e.target.result;
             };
-            reader.readAsDataURL(file); // Convert to base64
+            reader.readAsDataURL(file);
         }
     }
 
@@ -94,17 +98,30 @@ export class ProductListComponent implements OnInit {
             next: () => {
                 this.fetchProducts();
                 this.closeModal();
+                // Show success alert using Swal
+                Swal.fire({
+                    title: 'Product Added!',
+                    text: 'The product has been successfully added.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                });
             },
             error: (err) => {
                 console.error('Error adding product:', err);
-                alert('Failed to add product. Please try again.');
+                // Show error alert using Swal
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Failed to add product. Please try again.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
             }
         });
     }
 
     resetForm() {
-        this.product = { _id: '', name: '', image: '', price:'', specifications: [] };
+        this.product = { _id: '', name: '', image: '', price: '', specifications: [] };
         this.selectedImage = null;
-        this.specifications = ''; 
+        this.specifications = '';
     }
 }

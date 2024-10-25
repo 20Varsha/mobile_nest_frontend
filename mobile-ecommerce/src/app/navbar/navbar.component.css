@@ -38,4 +38,12 @@
     color: #000000; /* Change this to your desired hover color */
   }
   
-  
+  .user-items{
+    border: 1px solid #00000042;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  .dropdown-item:hover{
+    font-weight:500;
+  }

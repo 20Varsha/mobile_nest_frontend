@@ -48,7 +48,7 @@ h2{
   
 .order-box .view-product {
   font-size: 18px;
-  color: #ff0000d6;
+  color: #000000d6;
   margin: 10px 0;
   font-weight: 800;
   cursor: pointer;
@@ -60,7 +60,7 @@ h2{
 
 .order-box  .view-product:hover {
   font-size: 20px;
-  color: #e00a0ad6;
+  color: #000000d6;
   margin: 10px 0;
   font-weight: 900;
   text-decoration: none;

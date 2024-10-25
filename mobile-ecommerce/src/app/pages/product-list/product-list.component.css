@@ -6,6 +6,16 @@ h2{
     font-weight: bold;
 }
 
+.welcome-msg{
+  margin-bottom: 20px;
+  font-family: monospace;
+  color: #358306ad;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: start;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
@@ -69,7 +79,7 @@ h2{
   font-size: 18px;
   margin: 10px 0;
   font-family: monospace;
-  color: #000000; /* Change to your preferred color */
+  color: #000000; 
 }
 
 .add-product-form {

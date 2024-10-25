@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-order',
@@ -21,19 +21,19 @@ export class OrderComponent implements OnInit {
     city: '',
     postalCode: '',
     country: '',
-    phoneNumber:'',
-    state:''
+    phoneNumber: '',
+    state: ''
   };
-  product: any; 
-  quantity: number = 1; 
+  product: any;
+  quantity: number = 1;
   shippingCost: number = 50;
   taxAmount: number = 0;
   totalPrice: number = 0;
 
-  constructor(private apiService: ApiService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private apiService: ApiService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.productId = this.route.snapshot.paramMap.get('id') || ''; 
+    this.productId = this.route.snapshot.paramMap.get('id') || '';
     if (this.productId) {
       this.fetchProductDetails(this.productId);
     }
@@ -42,7 +42,7 @@ export class OrderComponent implements OnInit {
   fetchProductDetails(productId: string) {
     this.apiService.getProductDetails(productId).subscribe(
       (data) => {
-        this.product = data; 
+        this.product = data;
         this.calculateTotalPrice(); // Calculate total price on product fetch
       },
       (error) => {
@@ -65,8 +65,8 @@ export class OrderComponent implements OnInit {
       city: this.shippingAddress.city,
       postalCode: this.shippingAddress.postalCode,
       country: this.shippingAddress.country,
-      state:this.shippingAddress.state,
-      phoneNumber:this.shippingAddress.phoneNumber
+      state: this.shippingAddress.state,
+      phoneNumber: this.shippingAddress.phoneNumber
     };
 
     this.apiService.placeOrder(this.productId, this.quantity, this.accountDetails, shippingAddress).subscribe(
@@ -76,6 +76,10 @@ export class OrderComponent implements OnInit {
           text: 'Product purchased successfully!',
           icon: 'success',
           confirmButtonText: 'OK'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            this.router.navigate(['/orders-list', response.orderId]);
+          }
         });
       },
       error => {
@@ -90,7 +94,7 @@ export class OrderComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigate(['/products']); 
+    this.router.navigate(['/product-details', this.productId]);
   }
 
 }
