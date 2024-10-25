@@ -14,9 +14,11 @@
 }
 
 h2{
-    margin-bottom: 20px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
+  margin-bottom: 20px;
+    font-family: monospace;
+    color: #333333;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .order-name {
@@ -44,15 +46,26 @@ h2{
     margin-right: 10px;
   }
   
-.view-product{
-    font-size: 15px;
-    color: #333333d6;
-    margin: 10px 0;
-    display: flex;
-    font-family: monospace;
-    justify-content: center;
-    font-weight: bold;
+.order-box .view-product {
+  font-size: 18px;
+  color: #ff0000d6;
+  margin: 10px 0;
+  font-weight: 800;
+  cursor: pointer;
+  font-family: monospace;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
 }
+
+.order-box  .view-product:hover {
+  font-size: 20px;
+  color: #e00a0ad6;
+  margin: 10px 0;
+  font-weight: 900;
+  text-decoration: none;
+}
+
 
 .order-box h4{
     font-weight: 300;

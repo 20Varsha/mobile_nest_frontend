@@ -2,6 +2,14 @@
   margin: 20px;
 }
 
+h2{
+margin-bottom: 20px;
+    font-family: monospace;
+    color: #333333;
+    font-size: 25px;
+    font-weight: bold;
+}
+
 .account-details,
 .product-details {
   padding: 20px;
