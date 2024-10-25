@@ -53,6 +53,7 @@ h2{
     font-weight: 800;
     cursor: pointer;
     font-family: monospace;
+    color: inherit;
 }
 
 .order-box  .view-more:hover {
@@ -60,6 +61,7 @@ h2{
     color: #e00a0ad6;
     margin: 10px 0;
     font-weight: 900;
+    color: inherit;
 }
 
 .order-box p {

@@ -56,22 +56,6 @@ h2{
   margin-bottom: 5px; /* Space between specifications */
 }
 
-.buy-button {
-  background-color: #ff5a00; /* Myntra-like orange */
-  color: white; /* White text */
-  padding: 10px; /* Padding for the button */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor */
-  font-size: 16px; /* Font size */
-  width: 100%; /* Full width */
-  transition: background-color 0.3s; /* Smooth transition */
-}
-
-.buy-button:hover {
-  background-color: #000000; /* Darker orange on hover */
-}
-
 .price{
   color: #333;
   justify-content: start;
@@ -85,7 +69,7 @@ h2{
   font-size: 18px;
   margin: 10px 0;
   font-family: monospace;
-  color: #ff0000; /* Change to your preferred color */
+  color: #000000; /* Change to your preferred color */
 }
 
 .add-product-form {
